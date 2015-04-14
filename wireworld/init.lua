@@ -74,8 +74,9 @@ minetest.register_abm({
 			elseif node.name == "wireworld:electron_tail" then
 				new_node_name = "wireworld:conductor"
 			else
-				local neighbors = BobUtil.node_neighbors(pos)
-				local head_count = count_heads(neighbors)
+				local neighbors = BobUtil.named_neighbors(pos,
+							  "wireworld:electron_head")
+				local head_count = table.getn(neighbors)
 
 				if head_count == 1 or head_count == 2 then
 					new_node_name = "wireworld:electron_head"
