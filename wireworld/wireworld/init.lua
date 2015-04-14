@@ -26,7 +26,7 @@ minetest.register_node("wireworld:electron_head", {
 			       diggable = true,
 			       drop = "wireworld:electron_head",
 			       light_source = 14,
-			       groups = {oddly_breakable_by_hand=1},
+			       groups = {oddly_breakable_by_hand=3},
 })
 
 -- This is a wireworld electron tail.
@@ -37,7 +37,7 @@ minetest.register_node("wireworld:electron_tail", {
 			       diggable = true,
 			       drop = "wireworld:electron_head",
 			       light_source = 10,
-			       groups = {oddly_breakable_by_hand=1},
+			       groups = {oddly_breakable_by_hand=3},
 })
 
 -- This is a wireworld conductor.
@@ -47,7 +47,7 @@ minetest.register_node("wireworld:conductor", {
 			       tiles = {"wireworld_conductor.png"},
 			       diggable = true,
 			       drop = "wireworld:conductor",
-			       groups = {oddly_breakable_by_hand=1},
+			       groups = {oddly_breakable_by_hand=3},
 })
 
 
