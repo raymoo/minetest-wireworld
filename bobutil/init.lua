@@ -50,8 +50,8 @@ local offsets =
 	
 local apply_offset = Church.curry(function(pos, offset)
 		local new_pos = { x = pos.x + offset.x,
-			    y = pos.y + offset.y,
-			    z = pos.z + offset.z,
+				  y = pos.y + offset.y,
+				  z = pos.z + offset.z,
 		}
 		return new_pos
 end)
