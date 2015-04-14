@@ -24,7 +24,7 @@ minetest.register_node("wireworld:electron_head", {
 			       drawtype = "normal",
 			       tiles = {"wireworld_elec_head.png"},
 			       diggable = true,
-			       drop = "wireworld:electron_head",
+			       drop = "wireworld:conductor",
 			       light_source = 14,
 			       groups = {oddly_breakable_by_hand=3},
 })
@@ -35,7 +35,7 @@ minetest.register_node("wireworld:electron_tail", {
 			       drawtype = "normal",
 			       tiles = {"wireworld_elec_tail.png"},
 			       diggable = true,
-			       drop = "wireworld:electron_head",
+			       drop = "wireworld:conductor",
 			       light_source = 10,
 			       groups = {oddly_breakable_by_hand=3},
 })
