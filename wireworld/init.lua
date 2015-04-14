@@ -124,3 +124,14 @@ minetest.register_craft({
 		{"default:steel_ingot", "default:mese_crystal", "default:steel_ingot"},
 	}
 })
+
+
+-- Zapper
+minetest.register_craft({
+	output = "wireworld:zapper 1",
+	recipe = {
+		{"default:dirt", "default:dirt", "default:dirt"},
+		{"default:dirt", "default:mese_crystal", "default:dirt"},
+		{"default:dirt", "default:dirt", "default:dirt"},
+	}
+})
