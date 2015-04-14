@@ -169,11 +169,8 @@ end)
 -- Takes a function that takes x and y, then gives a function that takes y and
 -- x.
 Church.flip = function(f)
-	local flipped = function(y)
 
-		local flipped_part = function(x)
-
+	return Church.curry(function(y, x)
 			return f(x)(y)
-		end
-	end
+	end)
 end
