@@ -29,11 +29,12 @@ end
 -- How far away in one axis a neighbor can be
 local offsets_comp = {-1, 0, 1}
 
-local build_pos = Church.curry3(function(x, y, z)
-		local new_pos = {}
-		new_pos.x = x
-		new_pos.y = y
-		new_pos.z = z
+local build_pos = Church.curry3(function(in_x, in_y, in_z)
+		local new_pos = {
+			x = in_x,
+			y = in_y,
+			z = in_z,
+		}
 		return new_pos
 end)
 

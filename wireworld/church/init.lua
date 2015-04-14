@@ -117,10 +117,10 @@ end
 
 -- Constructs a pair
 Church.pair = Church.curry(function(x,y)
-		local new_pair = {}
-
-		new_pair.fst = x
-		new_pair.snd = y
+		local new_pair = {
+			fst = x,
+			snd = y,
+		}
 
 		return new_pair
 end)
