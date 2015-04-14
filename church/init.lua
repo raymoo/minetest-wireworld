@@ -59,6 +59,10 @@ Church.apply = Church.curry(function(f, x)
 		return f(x)
 end)
 
+Church.compose = Church.curry3(function(f,g,x)
+		return f(g(x))
+end)
+
 -- Takes a function f and a table tab, then returns a new table with each
 -- element from tab having f applied.
 Church.map = function(f)
