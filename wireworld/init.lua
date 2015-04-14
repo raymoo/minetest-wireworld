@@ -80,7 +80,7 @@ minetest.register_abm({
 				if head_count == 1 or head_count == 2 then
 					new_node_name = "wireworld:electron_head"
 				else
-					new_node_name = "wireworld:conductor"
+					return
 				end
 			end
 
