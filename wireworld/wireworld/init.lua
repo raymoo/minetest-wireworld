@@ -109,3 +109,17 @@ minetest.register_craftitem("wireworld:zapper", {
 				    stack_max = 1,
 				    on_use = zapper_action,
 })
+
+
+-- Crafting Recipes
+
+
+-- Conductor
+minetest.register_craft({
+	output = "wireworld:conductor 16",
+	recipe = {
+		{"default:steel_ingot", "default:mese_crystal", "default:steel_ingot"},
+		{"default:mese_crystal", "default:mese_crystal", "default:mese_crystal"},
+		{"default:steel_ingot", "default:mese_crystal", "default:steel_ingot"},
+	}
+})
