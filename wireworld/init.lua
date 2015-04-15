@@ -1,3 +1,5 @@
+dofile(minetest.get_modpath("wireworld").."/lib/bobutil.lua")
+
 Wireworld = {}
 
 -- Simulation timestep
