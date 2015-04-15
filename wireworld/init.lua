@@ -1,9 +1,12 @@
-dofile(minetest.get_modpath("wireworld").."/lib/bobutil.lua")
+local modpath = minetest.get_modpath("wireworld")
+
+dofile(modpath.."/lib/bobutil.lua")
+local config = dofile(modpath.."/configuration.lua")
 
 Wireworld = {}
 
 -- Simulation timestep
-local timestep = 0.5
+local timestep = config.timestep
 
 -- Count accumulator for a specific predicate.
 local function count_accumulator(p)
