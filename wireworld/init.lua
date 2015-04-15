@@ -205,3 +205,14 @@ minetest.register_craft({
 		{"default:dirt", "default:dirt", "default:dirt"},
 	}
 })
+
+
+-- Interface
+minetest.register_craft({
+	output = "wireworld:interface_off 2",
+	recipe = {
+		{"default:steel_ingot", "mesecons:mesecon", "default:steel_ingot"},
+		{"mesecons:mesecon", "default:mese_crystal", "mesecons:mesecon"},
+		{"default:steel_ingot", "mesecons:mesecon", "default:steel_ingot"},
+	}
+})
