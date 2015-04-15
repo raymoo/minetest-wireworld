@@ -74,6 +74,33 @@ minetest.register_node("wireworld:conductor", {
 })
 
 
+-- Wireworld interface - On when an electoron head is next to it
+minetest.register_node("wireworld:interface_off", {
+			description = "Interface",
+			drawtype = "normal",
+			tiles = {"wireworld_interface_off.png"},
+			diggable = true,
+			drop = "wireworld:interface_off",
+			groups = {oddly_breakable_by_hand=3, mesecon = 2},
+			mesecons = {receptor = {
+				state = "off" -- mesecon.state.off
+			}},
+})
+
+minetest.register_node("wireworld:interface_on", {
+			description = "Interface",
+			drawtype = "normal",
+			tiles = {"wireworld_interface_on.png"},
+			diggable = true,
+			drop = "wireworld:interface_off",
+			groups = {oddly_breakable_by_hand=3, mesecon = 2},
+			mesecons = {receptor = {
+				state = "on" -- mesecon.state.on
+			}},
+					    
+})
+
+
 -- Like set_node, but does not change air
 local function change_node(pos, tab)
 	if minetest.get_node(pos).name ~= "air" then
@@ -82,11 +109,17 @@ local function change_node(pos, tab)
 end
 
 
+local function head_neighbor_count(pos)
+	return #(BobUtil.named_neighbors(pos, "wireworld:electron_head"))
+end
+
 -- Node update ABM. Runs one step of wireworld.
 minetest.register_abm({
 		nodenames = {"wireworld:electron_head",
 			     "wireworld:electron_tail",
 			     "wireworld:conductor",
+			     "wireworld:interface_on",
+			     "wireworld:interface_off",
 		},
 		interval = timestep,
 		chance = 1,
@@ -97,13 +130,37 @@ minetest.register_abm({
 			elseif node.name == "wireworld:electron_tail" then
 				minetest.after(0.1, change_node,
 					       pos, {name="wireworld:conductor"})
-			else
-				local neighbors = BobUtil.named_neighbors(pos,
-							  "wireworld:electron_head")
-				local head_count = #neighbors
+			elseif node.name == "wireworld:conductor" then
+				local head_count = head_neighbor_count(pos)
 
 				if head_count == 1 or head_count == 2 then
 					minetest.after(0.1, zap, pos)
+				end
+			elseif node.name == "wireworld:interface_on" then
+				local head_count = head_neighbor_count(pos)
+
+				if head_count == 0 then
+					-- We need to turn it off before the
+					-- other nodes change
+					minetest.after(0.05, function()
+						change_node(pos, {name="wireworld:interface_off"})
+						if mesecon then
+							mesecon:receptor_off(pos)
+						end
+					end)
+				end
+			elseif node.name == "wireworld:interface_off" then
+				local head_count = head_neighbor_count(pos)
+
+				if head_count > 0 then
+					-- We need to turn it on after the other
+					-- nodes change.
+					minetest.after(0.15, function()
+						change_node(pos, {name="wireworld:interface_on"})
+						if mesecon then
+							mesecon:receptor_on(pos)
+						end
+					end)
 				end
 			end
 
