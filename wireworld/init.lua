@@ -25,9 +25,6 @@ end)
 local function zap(pos)
 	if minetest.get_node(pos).name == "wireworld:conductor" then
 		minetest.set_node(pos, {name = "wireworld:electron_head"})
-		if mesecon then
-			mesecon:receptor_on(pos)
-		end
 	end
 end
 
@@ -36,9 +33,6 @@ end
 local function unzap(pos)
 	if minetest.get_node(pos).name == "wireworld:electron_head" then
 		minetest.set_node(pos, {name = "wireworld:electron_tail"})
-		if mesecon then
-			mesecon:receptor_off(pos)
-		end
 	end
 end
 
@@ -50,10 +44,7 @@ minetest.register_node("wireworld:electron_head", {
 			diggable = true,
 			drop = "wireworld:conductor",
 			light_source = 14,
-			groups = {oddly_breakable_by_hand=3, mesecon=2},
-			mesecons = {receptor = {
-				state = "on" -- mesecons.state.on
-			}},
+			groups = {oddly_breakable_by_hand=3},
 })
 
 -- This is a wireworld electron tail.
