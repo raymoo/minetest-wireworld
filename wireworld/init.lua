@@ -25,9 +25,22 @@ end)
 local function zap(pos)
 	if minetest.get_node(pos).name == "wireworld:conductor" then
 		minetest.set_node(pos, {name = "wireworld:electron_head"})
+		if mesecon then
+			mesecon:receptor_on(pos)
+		end
 	end
 end
 
+
+-- Turns electron heads into tails
+local function unzap(pos)
+	if minetest.get_node(pos).name == "wireworld:electron_head" then
+		minetest.set_node(pos, {name = "wireworld:electron_tail"})
+		if mesecon then
+			mesecon:receptor_off(pos)
+		end
+	end
+end
 
 -- This is a wireworld electron head.
 minetest.register_node("wireworld:electron_head", {
@@ -37,7 +50,7 @@ minetest.register_node("wireworld:electron_head", {
 			diggable = true,
 			drop = "wireworld:conductor",
 			light_source = 14,
-			groups = {oddly_breakable_by_hand=3},
+			groups = {oddly_breakable_by_hand=3, mesecon=2},
 			mesecons = {receptor = {
 				state = "on" -- mesecons.state.on
 			}},
@@ -89,23 +102,20 @@ minetest.register_abm({
 		action = function(pos, node)
 			local new_node_name
 			if node.name == "wireworld:electron_head" then
-				new_node_name = "wireworld:electron_tail"
+				minetest.after(0.1, unzap, pos)
 			elseif node.name == "wireworld:electron_tail" then
-				new_node_name = "wireworld:conductor"
+				minetest.after(0.1, change_node,
+					       pos, {name="wireworld:conductor"})
 			else
 				local neighbors = BobUtil.named_neighbors(pos,
 							  "wireworld:electron_head")
 				local head_count = #neighbors
 
 				if head_count == 1 or head_count == 2 then
-					new_node_name = "wireworld:electron_head"
-				else
-					return
+					minetest.after(0.1, zap, pos)
 				end
 			end
 
-			minetest.after(0.1, change_node,
-				       pos, {name=new_node_name})
 		end,
 })
 
