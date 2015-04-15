@@ -8,6 +8,12 @@ Wireworld = {}
 -- Simulation timestep
 local timestep = config.timestep
 
+-- Update lag after abm
+local time_lag = timestep / 5
+
+-- Fudging factor for mesecons updates
+local time_mese = timestep / 10
+
 -- Count accumulator for a specific predicate.
 local function count_accumulator(p)
 	return Church.fold(Church.curry(function(acc, x)
@@ -129,15 +135,15 @@ minetest.register_abm({
 		action = function(pos, node)
 			local new_node_name
 			if node.name == "wireworld:electron_head" then
-				minetest.after(0.1, unzap, pos)
+				minetest.after(time_lag, unzap, pos)
 			elseif node.name == "wireworld:electron_tail" then
-				minetest.after(0.1, change_node,
+				minetest.after(time_lag, change_node,
 					       pos, {name="wireworld:conductor"})
 			elseif node.name == "wireworld:conductor" then
 				local head_count = head_neighbor_count(pos)
 
 				if head_count == 1 or head_count == 2 then
-					minetest.after(0.1, zap, pos)
+					minetest.after(time_lag, zap, pos)
 				end
 			elseif node.name == "wireworld:interface_on" then
 				local head_count = head_neighbor_count(pos)
@@ -145,7 +151,7 @@ minetest.register_abm({
 				if head_count == 0 then
 					-- We need to turn it off before the
 					-- other nodes change
-					minetest.after(0.05, function()
+					minetest.after(time_lag - time_mese, function()
 						change_node(pos, {name="wireworld:interface_off"})
 						if mesecon then
 							mesecon:receptor_off(pos)
@@ -158,7 +164,7 @@ minetest.register_abm({
 				if head_count > 0 then
 					-- We need to turn it on after the other
 					-- nodes change.
-					minetest.after(0.15, function()
+					minetest.after(time_lag + time_mese, function()
 						change_node(pos, {name="wireworld:interface_on"})
 						if mesecon then
 							mesecon:receptor_on(pos)
