@@ -47,44 +47,44 @@ end
 
 -- This is a wireworld electron head.
 minetest.register_node("wireworld:electron_head", {
-			       description = "Electron Head",
-			       drawtype = "normal",
-			       tiles = {"wireworld_elec_head.png"},
-			       diggable = true,
-			       drop = "wireworld:conductor",
-			       light_source = 14,
-			       groups = {oddly_breakable_by_hand=3},
-			       mesecons = {receptor = {
-					rules = default_rules_copy,
-					state = "on" -- mesecons.state.on
-					  }},
+			description = "Electron Head",
+			drawtype = "normal",
+			tiles = {"wireworld_elec_head.png"},
+			diggable = true,
+			drop = "wireworld:conductor",
+			light_source = 14,
+			groups = {oddly_breakable_by_hand=3},
+			mesecons = {receptor = {
+				rules = default_rules_copy,
+				state = "on" -- mesecons.state.on
+			}},
 })
 
 -- This is a wireworld electron tail.
 minetest.register_node("wireworld:electron_tail", {
-			       description = "Electron Tail",
-			       drawtype = "normal",
-			       tiles = {"wireworld_elec_tail.png"},
-			       diggable = true,
-			       drop = "wireworld:conductor",
-			       light_source = 10,
-			       groups = {oddly_breakable_by_hand=3},
+			description = "Electron Tail",
+			drawtype = "normal",
+			tiles = {"wireworld_elec_tail.png"},
+			diggable = true,
+			drop = "wireworld:conductor",
+			light_source = 10,
+			groups = {oddly_breakable_by_hand=3},
 })
 
 -- This is a wireworld conductor.
 minetest.register_node("wireworld:conductor", {
-			       description = "Conductor",
-			       drawtype = "normal",
-			       tiles = {"wireworld_conductor.png"},
-			       diggable = true,
-			       drop = "wireworld:conductor",
-			       groups = {oddly_breakable_by_hand=3},
-			       mesecons = {effector = {
-					rules = default_rules_copy,
-					action_on = function(pos, node)
-						zap(pos)
-					end,
-				}},
+			description = "Conductor",
+			drawtype = "normal",
+			tiles = {"wireworld_conductor.png"},
+			diggable = true,
+			drop = "wireworld:conductor",
+			groups = {oddly_breakable_by_hand=3},
+			mesecons = {effector = {
+				rules = default_rules_copy,
+				action_on = function(pos, node)
+					zap(pos)
+				end,
+			}},
 })
 
 
@@ -134,11 +134,11 @@ local function zapper_action(itemstack, user, pointed_thing)
 end
 
 minetest.register_craftitem("wireworld:zapper", {
-				    description = "Zapper",
-				    inventory_image = "wireworld_zapper.png",
-				    wield_image = "wireworld_zapper.png",
-				    stack_max = 1,
-				    on_use = zapper_action,
+				description = "Zapper",
+				inventory_image = "wireworld_zapper.png",
+				wield_image = "wireworld_zapper.png",
+				stack_max = 1,
+				on_use = zapper_action,
 })
 
 
