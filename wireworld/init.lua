@@ -169,7 +169,7 @@ minetest.register_abm({
 
 
 local function zapper_action(itemstack, user, pointed_thing)
-	pos = minetest.get_pointed_thing_position(pointed_thing, false)
+	local pos = minetest.get_pointed_thing_position(pointed_thing, false)
 	zap(pos)
 end
 
