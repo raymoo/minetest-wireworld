@@ -102,7 +102,8 @@ minetest.register_node("wireworld:interface_on", {
 			tiles = {"wireworld_interface_on.png"},
 			diggable = true,
 			drop = "wireworld:interface_off",
-			groups = {oddly_breakable_by_hand=3, mesecon = 2},
+			groups = {oddly_breakable_by_hand=3, mesecon = 2,
+				  not_in_creative_inventiry=1},
 			mesecons = {receptor = {
 				state = "on" -- mesecon.state.on
 			}},
